@@ -1,28 +1,40 @@
 header {
-	display: flex;
-	align-items: center;
+	position: absolute;
+	left: 0%;
+	right: 0%;
+	top: 0%;
+	bottom: 90.9%;
 
-	padding-top: 20px;
-	padding-bottom: 20px;
-	
-	padding-left: 100px;
-	padding-right: 100px;
+	background: #FFFFFF;
+	/* 1 */
 
-	width: 100%;
-
-	box-shadow: 0px -16px 30px 0px #000;
+	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
 }
 
-header img {
-	max-height: 48px; 
-	max-width: 48px;
+header svg {
+	position: absolute;
+	width: 42px;
+	height: 42px;
+	left: 123px;
+	top: 22px;
 }
 
-header h3 {
+#logo-text {
+	/* UI Style Guide */
+	position: absolute;
+	height: 20px;
+	left: 14.58%;
+	right: 67.43%;
+	top: calc(50% - 20px);
+
+	/* 20 / M */
+
+	font-family: Geometria;
+	font-style: normal;
 	font-weight: 500;
 	font-size: 20px;
+	line-height: 44px;
+	/* or 220% */
 
-	width: max-content;
-
-	margin-left: 50px;
+	color: #000000;
 }

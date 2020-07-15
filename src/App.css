@@ -1,6 +1,15 @@
-* {
-	font-family: Geometria, sans-serif;
-	box-sizing: border-box;
+body {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+	
+}
+
+#root {
+	position: relative;
+	width: 1440px;
+	height: 937px;
+
+
+	background: #FFFFFF;
 }
