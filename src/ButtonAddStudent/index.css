@@ -1,0 +1,26 @@
+#add_student {
+	display: flex;
+
+	background: #49C2E8;
+	border-radius: 10px;
+	border: none;
+
+	padding-left: 90px;
+	padding-right: 90px;
+
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+
+	align-items: center;
+	justify-content: space-around;
+
+	outline: none;
+
+	font-family: Geometria, sans-serif;
+	font-size: 16px;
+}	
+
+#add_student svg {
+	margin-right: 15px;
+}

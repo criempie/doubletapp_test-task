@@ -1,40 +1,28 @@
 header {
-	position: absolute;
-	left: 0%;
-	right: 0%;
-	top: 0%;
-	bottom: 90.9%;
+	position: relative;
+	display: flex;
 
-	background: #FFFFFF;
-	/* 1 */
+	align-items: center;
+
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
 
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+
 }
 
 header svg {
-	position: absolute;
-	width: 42px;
-	height: 42px;
-	left: 123px;
-	top: 22px;
+	max-width: 48px;
+	max-height: 48px;
+
+	margin-left: 100px;
+	
 }
 
 #logo-text {
-	/* UI Style Guide */
-	position: absolute;
-	height: 20px;
-	left: 14.58%;
-	right: 67.43%;
-	top: calc(50% - 20px);
-
-	/* 20 / M */
-
-	font-family: Geometria;
-	font-style: normal;
 	font-weight: 500;
 	font-size: 20px;
-	line-height: 44px;
-	/* or 220% */
 
-	color: #000000;
+	margin-left: 50px;
 }

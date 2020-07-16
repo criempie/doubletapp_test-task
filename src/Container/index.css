@@ -1,0 +1,18 @@
+.container {
+	position: absolute;
+
+	left: 10%;
+	right: 10%;
+
+	max-width: 1440px;
+
+	padding-top: 70px;
+}
+
+.container-text-and-button {
+	position: relative;
+	display: flex;
+	width: 100%;
+
+	justify-content: space-between;
+}
