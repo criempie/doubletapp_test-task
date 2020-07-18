@@ -12,11 +12,18 @@ header {
 
 }
 
-header svg {
+.logo-container {
+	display: flex;
+	position: relative;
+	align-items: center;
+
+	left: 10%;
+}
+
+.logo-container svg {
+	position: relative;
 	max-width: 48px;
 	max-height: 48px;
-
-	margin-left: 100px;
 	
 }
 

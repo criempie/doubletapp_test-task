@@ -17,14 +17,12 @@ class SearchLine extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<input type="text" className="searchline-input"
-									value={this.state.value}
-									onChange={this.handleChange}
-									placeholder="Поиск по имени">
+			<input type="text" className="searchline-input"
+								value={this.state.value}
+								onChange={this.handleChange}
+								placeholder="Поиск по имени">
 
-									</input>
-			</form>
+								</input>
 		);
 	}
 
