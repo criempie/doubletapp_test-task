@@ -7,11 +7,15 @@
 	width: 100%;
 
 	margin-bottom: 20px;
+	padding-top: 20px;
 }
 
-.input-container label {
+.input-container h4 {
+	position: absolute;
 	font-size: 15px;
 	font-weight: 500;
+	margin: 0;
+	
 }
 
 .input-container input {

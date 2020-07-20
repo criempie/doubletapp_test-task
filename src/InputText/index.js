@@ -15,7 +15,7 @@ class InputText extends Component {
 	render(props) {
 		return (
 			<div className="input-container">
-				<label>{this.state.label}</label>
+				<h4>{this.state.label}</h4>
 				<input type="text" placeholder={this.state.placeholder}></input>
 			</div>		
 		);

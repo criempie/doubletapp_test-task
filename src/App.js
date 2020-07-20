@@ -3,15 +3,16 @@ import React, {Component} from 'react';
 import Header from './Header/index.js';
 import Button from './Button/index.js';
 import SearchLine from './SearchLine/index.js';
-import SortButton from './SortButton/index.js';
 import TableStudents from './TableStudents/index.js';
 import ButtonToMainPage from './ButtonToMainPage/index.js';
 import AvatarChange from './AvatarChange/index.js';
 import InputText from './InputText/index.js';
-import InputSelect from './InputSelect/index.js';
+import CustomSelect from './CustomSelect/CustomSelect.js';
 
 import './fonts/Geometria/stylesheet.css';
 import './App.css';
+import ColorSelect from './CustomSelect/ColorSelect.js';
+import SortSelect from './CustomSelect/SortSelect.js'
 
 
 class App extends Component {
@@ -20,6 +21,34 @@ class App extends Component {
 
     this.state = {
       isMainPage: true,
+      specialtyOptions: [
+        "Прикладная информатика",
+        "Прикладная математика",
+        "Механика",
+        "Математика",
+        "Компьютерные науки",
+        "Фундаметальная информатика"
+      ],
+
+      sortOptions: [
+        "Имя",
+        "Фамилия",
+        "Отчество",
+        "ФИО",
+        "Рейтинг",
+        "Возраст",
+        "Любимый цвет",
+      ], 
+
+      colorsOptions: [
+        '#49C2E8',
+        '#E25B5B',
+        '#83C872',
+        '#F7FB53',
+        '#000000',
+        '#EFA638',
+        '#rainbow',
+      ],
     }
   }
   
@@ -47,7 +76,7 @@ class App extends Component {
         </div>
         <div className="container-tools">
           <SearchLine />
-          <SortButton />
+          <SortSelect options={this.state.sortOptions} selected="Имя"/>
         </div>
         <TableStudents />
       </div>
@@ -69,20 +98,15 @@ class App extends Component {
             <div className="subcontainer">
               <InputText label="ФИО" placeholder="Иванов Иван Иванович" />
               <InputText label="Email" placeholder="ivanov@gmail.com" />
-              <InputSelect label="Специальность" options={["Прикладная информатика",
-                                                           "Прикладная математика",
-                                                           "Механика",
-                                                           "Математика",
-                                                           "Компьютерные науки",
-                                                           "Фундаментальная информатика"]} />
-              <InputSelect label="Группа" options={["ПИ-101"]} />
+              <CustomSelect label="Специальность" options={this.state.specialtyOptions} selected="Выбрать"/>
+              <CustomSelect label="Группа" options={["ПИ-101"]} selected="Выбрать" />
               <InputText label="Рейтинг" placeholder="0" />
               <Button label="Создать" />
             </div>
             <div className="subcontainer">
-              <InputSelect label="Пол" options={[ "Мужской",
+              <CustomSelect label="Пол" selected="Выбрать" options={[ "Мужской",
                                                   "Женский"]} />
-              <InputSelect label="Любимый цвет" options={[]} />
+              <ColorSelect label="Любимый цвет" selected="Выбрать" options={this.state.colorsOptions} type="colorSelect" />
             </div>
             <div className="subcontainer"></div>
           </div>

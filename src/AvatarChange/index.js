@@ -18,7 +18,7 @@ class AvatarChange extends Component {
 				</div>
 				<input type="file" id="image_input" className="inputfile"></input>
 				<div className="label-container">
-					<label for="image_input" className="inputfile-label">Сменить аватар</label>
+					<label htmlFor="image_input" className="inputfile-label">Сменить аватар</label>
 					<span>500x500</span>
 				</div>			
 			</div>
