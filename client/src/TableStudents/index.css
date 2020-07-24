@@ -1,0 +1,13 @@
+.table-students {
+	position: relative;
+	width: 100%;
+}
+
+.table-head {
+	font-size: 14px;
+}
+
+.table-head th {
+	font-weight: 400;
+}
+

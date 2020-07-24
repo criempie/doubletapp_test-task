@@ -1,0 +1,26 @@
+.button-to-main {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	
+	margin-top: 25px;
+	padding-left: 3px;
+
+	background: none;
+	border: 0;
+
+	font-family: Geometria, sans-serif;
+	left: 10%;
+
+	outline: none;
+}
+
+.button-to-main img{
+	margin-right: 20px;
+	margin-top: -5px;
+}
+
+.button-to-main:hover {
+	cursor: pointer;
+	font-weight: 500;
+}
