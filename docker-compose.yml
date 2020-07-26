@@ -1,0 +1,35 @@
+version: '3.8'
+
+services: 
+  frontend:
+    stdin_open: true
+    tty: true
+    build: ./client
+    ports:
+      - '3000:3000'
+    environment:
+      PORT: 3000
+
+  mongo:
+    image: mongo:bionic
+    restart: always
+    container_name: 'mongo_container'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017:27017'
+
+    
+  backend:
+    build: ./server
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      DATABASE_URL: mongodb://admin:admin@mongo:27017/
+    ports:
+    - 5000:5000
+  

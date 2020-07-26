@@ -4,24 +4,26 @@ import './index.css';
 class TableStudents extends Component {
 	constructor(props) {
 		super(props);
-		this.students = [
-			{
-				'avatar': null,
-				'fullname': 'Иванов Иван Иванович',
-				'specialty': 'Прикладная информатика',
-				'group': 'ПИ-101',
-				'age': 21,
-				'rating': 65,
-				'color': '#f00',
-			},
-		]
+
+		this.state = {
+			students: [],
+		}
+	}
+	
+	componentDidMount() {
+		fetch("http://localhost:3000/test")
+		.then(res => res.json())
+		.then(res => this.setState({
+			text: res.students,
+		}))
+		.catch(err => console.log(err));
 	}
 
 	render(props) {
 		return (
 			<table className="table-students">
 				<tbody>
-					{this.getTableHead()}
+					{this.state.text}
 				</tbody>
 			</table>
 		);

@@ -100,7 +100,7 @@ class App extends Component {
   }
 
   renderMainPage() {
-    return(
+    return (
       <div className="container">
         <div className="container-h2-additions">
         <h2>Студенты</h2>
