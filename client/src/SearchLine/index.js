@@ -1,30 +1,42 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import './index.css';
 
-class SearchLine extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {value: ""};
+function SearchLine(props) {
+	const name = "search";
+	const [value, setValue] = useState("");
 
-		this.handleChange = this.handleChange.bind(this);
-	}
-	
-	handleChange(event) {
-		this.setState({
-			value: event.target.value,
-		})
+	const sendValue = (data) => {
+		props.getValue(name, data);
 	}
 
-	render() {
-		return (
-			<input type="text" className="searchline-input"
-								value={this.state.value}
-								onChange={this.handleChange}
-								placeholder="Поиск по имени">
+	const handleChange = (event) => {
+		setValue(event.target.value);
+		sendValue(event.target.value);
+	};
 
-								</input>
-		);
-	}
+	// handleChange(event) {
+	// 	this.setState({
+	// 		value: event.target.value,
+	// 	})
+	// }
+
+	return (
+		<input type="text"  className="searchline-input"
+							value={value}
+							onChange={handleChange}
+							placeholder="Поиск по имени" />
+	);
+
+	// render() {
+	// 	return (
+	// 		<input type="text" className="searchline-input"
+	// 							value={this.state.value}
+	// 							onChange={this.handleChange}
+	// 							placeholder="Поиск по имени">
+
+	// 							</input>
+	// 	);
+	// }
 
 
 }

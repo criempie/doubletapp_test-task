@@ -3,7 +3,7 @@ import './index.css';
 
 function ButtonToMainPage(props) {
 	return (
-		<button className="button-to-main" onClick={props.switchPages}>
+		<button id="btn_to_main" className="button-to-main" onClick={props.OnClick}>
 			<img src="./images/back.svg"></img>
 			<span>НАЗАД К СПИСКУ СТУДЕНТОВ</span>
 		</button>

@@ -7,29 +7,46 @@ class SortSelect extends CustomSelect {
 		super(props);
 
 		this.state = {
-			options: this.props.options,
-			selected: this.props.selected,
-			selectedID: this.props.selectedID || -1,
+			name: props.name,
+			options: props.options || [],
+			value: props.value,
+			sortDirection: false, // false - down 
 			isOpen: false,
 		}
 
+		this.selectOption = this.selectOption.bind(this);
 	}
+
+	sendValue() {
+		this.props.getValue(this.state.name, [this.state.value, this.state.sortDirection]);
+	}
+
+	getDirectionIcon = () => <img className="sortdirection-icon"
+						  		  style={{transform: `scaleY(${this.state.sortDirection ? -1 : 1})`}}
+								  src="./images/sort.svg"
+								  onClick={() => this.setState({sortDirection: !this.state.sortDirection}, () => {
+									this.sendValue();
+								  })} />;
 
 	render(props) {
 		return (
-			<div className="input-container">
-				<button className="sort-select" onClick={this.switchVisibility} onBlur={() => setTimeout(this.setHidden, 200)}>
-					<span>{this.state.selected}</span>
-					{this.getIcon()}
+			<div className="input-container" id="sort_input">
+				<button className="sort-select" id="sort_button"  
+						onClick={this.switchVisibility}
+						onBlur={() => setTimeout(this.setHidden, 200)} >
+
+					<span>{this.state.value}</span>
 				</button>
+
+				{this.getDirectionIcon()}
+
 				<div className="options-container" style={{display: this.state.isOpen ? "grid" : "none"}}>
 					{this.getOptions()}
 				</div>
+
 			</div>	
 		);
 	}
-
-	getIcon = () => <img className="sortSelect-icon" src="./images/sort.svg"></img>;
 
 }
 

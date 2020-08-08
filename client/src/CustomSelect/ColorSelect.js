@@ -7,10 +7,11 @@ class ColorSelect extends CustomSelect {
 		super(props);
 
 		this.state = {
-			options: this.props.options,
-			label: this.props.label,
-			selected: this.props.selected,
-			selectedID: -1,
+			name: props.name,
+			options: props.options || [],
+			label: props.label,
+			value: props.value,
+			selectedID: props.selectedID || -1,
 			isOpen: false,
 		}
 
@@ -19,9 +20,10 @@ class ColorSelect extends CustomSelect {
 	render(props) {
 		return (
 			<div className="input-container">
-				{this.state.label ? this.getLabel() : null}
-				<button className="custom-select" onClick={this.switchVisibility} onBlur={() => setTimeout(this.setHidden, 200)}>
-					<span>{this.state.selected}</span>
+				{this.state.label ? <h4>{this.state.label}</h4> : null}
+				<button className="custom-select"   onClick={this.switchVisibility} 
+													onBlur={() => setTimeout(this.setHidden, 200)} >
+					<span>{this.state.value}</span>
 				</button>
 				<div className="colors-container" style={{display: this.state.isOpen ? "grid" : "none"}}>
 					{this.getOptions()}
@@ -33,11 +35,20 @@ class ColorSelect extends CustomSelect {
 	getOptions() {
 		let optionsArray = [];
 		for (let color of this.state.options) {
-			let id = btoa(encodeURIComponent(color));
+			let id = color;
 			let temp = [];
 			temp = [
-				<input id={id} className="option-input" type="radio" value={color}></input>,
-				<div className="option-color" htmlFor={id} onClick={() => this.selectOption(color, id)}  style={{backgroundColor: color}}></div>
+				<input id={id}
+					   className="option-input"
+					   type="radio"
+					   value={color} />,
+
+				<div className="option-color"
+					 htmlFor={id}
+					 onClick={() => this.selectOption(color, id)}
+					 style={color != "#rainbow" ? {backgroundColor: color} : null}>
+						 {color == "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" /> : null}
+				</div>
 			];
 
 			optionsArray = optionsArray.concat(temp);

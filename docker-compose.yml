@@ -15,8 +15,8 @@ services:
     restart: always
     container_name: 'mongo_container'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: admin
     volumes:
       - ./mongo-volume:/data/db
     ports:
@@ -25,11 +25,11 @@ services:
     
   backend:
     build: ./server
-    depends_on:
-      - mongo
     restart: always
     environment:
       DATABASE_URL: mongodb://admin:admin@mongo:27017/
+    volumes:
+      - ./server/uploads:/uploads
     ports:
     - 5000:5000
   

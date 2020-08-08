@@ -1,0 +1,21 @@
+.form-container {
+	height: 100vh;
+}
+
+.inputs-container {
+	display: flex;
+
+	flex-direction: column;
+
+	max-height: 20em;
+
+	flex-wrap: wrap;
+	flex-direction: column;
+
+}
+
+.input-container {
+
+	width: auto;
+	max-width: 350px;
+}

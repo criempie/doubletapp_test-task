@@ -5,13 +5,10 @@ import Button from './Button/index.js';
 import SearchLine from './SearchLine/index.js';
 import TableStudents from './TableStudents/index.js';
 import ButtonToMainPage from './ButtonToMainPage/index.js';
-import AvatarChange from './AvatarChange/index.js';
-import InputText from './InputText/index.js';
-import CustomSelect from './CustomSelect/CustomSelect.js';
+import Form from './Form/index.js';
 
 import './fonts/Geometria/stylesheet.css';
 import './App.css';
-import ColorSelect from './CustomSelect/ColorSelect.js';
 import SortSelect from './CustomSelect/SortSelect.js'
 
 
@@ -21,6 +18,8 @@ class App extends Component {
 
     this.state = {
       isMainPage: true,
+      search: "",
+      sort: ['ФИО', false],
       specialtyOptions: {
         PI: "Прикладная информатика",
         PM: "Прикладная математика",
@@ -31,11 +30,9 @@ class App extends Component {
       },
 
       sortOptions: [
-        "Имя",
-        "Фамилия",
-        "Отчество",
         "ФИО",
         "Рейтинг",
+        "Группа",
         "Возраст",
         "Любимый цвет",
       ], 
@@ -82,11 +79,12 @@ class App extends Component {
         "Женский",
       ],
 
-      
     }
+
+    this.switchPages = this.switchPages.bind(this);
   }
   
-  switchPages = () => this.setState({isMainPage: !this.state.isMainPage})
+  switchPages = () => this.setState({isMainPage: !this.state.isMainPage});
 
   render() {
     return (
@@ -99,18 +97,27 @@ class App extends Component {
     );
   }
 
+  getValue = (stateName=null, value=null) => {
+    this.setState({[stateName]: value});
+    console.log('state: ', this.state)
+	}
+
   renderMainPage() {
     return (
       <div className="container">
         <div className="container-h2-additions">
         <h2>Студенты</h2>
-          <Button label="Добавить студента" imagePath="./images/add.svg" switchPages={this.switchPages} />
+          <Button label="Добавить студента" imagePath="./images/add.svg" OnClick={this.switchPages} />
         </div>
         <div className="container-tools">
-          <SearchLine />
-          <SortSelect options={this.state.sortOptions} selectedID="0" selected="Имя"/>
+          <SearchLine getValue={this.getValue} />
+          <SortSelect options={this.state.sortOptions} 
+                      value="ФИО"
+                      name="sort" 
+                      getValue={this.getValue}/>
         </div>
-        <TableStudents />
+        <TableStudents search={this.state.search}
+                       sortSettings={this.state.sort} />
       </div>
     );
   }
@@ -123,10 +130,15 @@ class App extends Component {
           <div className="container-h2-additions">
             <h2>Новый студент</h2>
           </div>
-          <div className="avatarchange-container">
+
+          <Form func={this.switchPages} />
+
+          {/* <div className="avatarchange-container">
               <AvatarChange />
           </div>
+
           <div className="subcontainer-container">
+
             <div className="subcontainer">
               <InputText label="ФИО" placeholder="Иванов Иван Иванович" />
               <InputText label="Email" placeholder="ivanov@gmail.com" />
@@ -135,14 +147,18 @@ class App extends Component {
               <InputText label="Рейтинг" placeholder="0" />
               <Button label="Создать" />
             </div>
+
             <div className="subcontainer">
               <CustomSelect label="Пол" selected="Выбрать" options={this.state.sexOptions} />
               <ColorSelect label="Любимый цвет" selected="Выбрать" options={this.state.colorsOptions} type="colorSelect" />
             </div>
+
             <div className="subcontainer"></div>
-          </div>
+
+          </div> */}
+
         </div>
-        <ButtonToMainPage switchPages={this.switchPages} />
+        <ButtonToMainPage OnClick={this.switchPages} />
       </div>
     );
   }

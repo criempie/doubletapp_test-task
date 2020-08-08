@@ -44,9 +44,16 @@
 	cursor: pointer;
 }
 
+#sort_input { 
+	display: flex;
+}
+
+#sort_button {
+	width: 80% !important;
+}
+
 .sort-select {
-	margin: 0;
-	padding: 0;
+
 }
 
 .sort-select span {
@@ -55,9 +62,14 @@
 }
 
 .sort-select img {
-	position: absolute;
+	position: relative;
+	width: max-content;
 	right: 0;
 	margin-right: 10px;
+}
+
+.sortdirection-icon:hover {
+	cursor: pointer;
 }
 
 .options-container {
@@ -116,12 +128,15 @@
 	
 	border-radius: 100px;
 
-	width: auto;
-	height: auto;
-
 	width: 30px;
 	height: 30px;
+}
 
+.option-color img {
+	width: 100%;
+	height: 100%;
+
+	border: 0;
 }
 
 .option-color:hover {
