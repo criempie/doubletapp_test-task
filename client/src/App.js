@@ -19,6 +19,8 @@ class App extends Component {
     this.state = {
       isMainPage: true,
       search: "",
+      windowWidth: props.windowWidth,
+
       sort: ['ФИО', false],
       specialtyOptions: {
         PI: "Прикладная информатика",
@@ -99,7 +101,6 @@ class App extends Component {
 
   getValue = (stateName=null, value=null) => {
     this.setState({[stateName]: value});
-    console.log('state: ', this.state)
 	}
 
   renderMainPage() {
@@ -114,9 +115,11 @@ class App extends Component {
           <SortSelect options={this.state.sortOptions} 
                       value="ФИО"
                       name="sort" 
-                      getValue={this.getValue}/>
+                      getValue={this.getValue} />
         </div>
-        <TableStudents search={this.state.search}
+
+        <TableStudents tableStyle={this.windowWidth < 490 ? "mobile" : "desktop"}
+                       search={this.state.search}
                        sortSettings={this.state.sort} />
       </div>
     );

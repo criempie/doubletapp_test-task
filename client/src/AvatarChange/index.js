@@ -8,6 +8,7 @@ class AvatarChange extends Component {
 		this.state = {
 			name: "avatar",
 			file: "",
+			isValid: false,
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -16,7 +17,11 @@ class AvatarChange extends Component {
 	}
 
 	sendValue(file) {
-		this.props.getValue(this.state.name, [file, true]);
+		this.props.getValue(this.state.name, file);
+	}
+
+	sendValid() {
+		this.props.getValid(this.state.name, this.state.isValid);
 	}
 
 	handleChange(event) {
@@ -26,6 +31,7 @@ class AvatarChange extends Component {
 		let file = event.target.files[0];
 		
 		this.sendValue(file);
+		this.setState({isValid: true}, this.sendValid);
 
 		reader.onloadend = () => {
 			this.setState({
@@ -43,7 +49,7 @@ class AvatarChange extends Component {
 			<div className="avatarchange-container">
 
             	<div className="avatar-container">
-					{this.state.imageCash ? <img src={this.state.imageCash} /> : <span>ФИ</span>}
+					{this.state.imageCash ? <img src={this.state.imageCash} alt="Превью" /> : <span>ФИ</span>}
 				</div>
 
 				<input name="filedata" type="file" accept="image/png, image/jpg, image/jpeg"

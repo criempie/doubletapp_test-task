@@ -42,8 +42,10 @@ app.get('/get', (req, res) => {
         })
 });
 
-app.post('/', (req, res) => {
+app.post('/api/send', (req, res) => {
+    console.log(req, res)
     upload(req, res, (err) => {
+        console.log("qweqweqweqw")
         if (err) {
             console.log(err);
             return res.sendStatus(500);

@@ -3,9 +3,14 @@ import './index.css';
 
 function Button(props) {
 	return (
-		<button className="blue-button" onClick={() => props.OnClick()}>
-			{props.hasOwnProperty('imagePath') ? <img src={props.imagePath}></img> : null}
-			<span>{props.label}</span>
+		<button className="blue-button"
+				style={props.style ? props.style : null}
+				onClick={() => props.OnClick()}>
+			<span>
+				{props.hasOwnProperty('imagePath') ? <img src={props.imagePath} alt="Плюсик" /> : null}
+				{props.label}
+			</span>
+		
 		</button>
 	);
 }

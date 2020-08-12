@@ -10,9 +10,17 @@
 	border: 0;
 
 	font-family: Geometria, sans-serif;
+	font-weight: 500;
+	font-size: 12px;
 	left: 10%;
 
 	outline: none;
+}
+
+@media all and (max-width: 490px) {
+	.button-to-main {
+		left: 5%;
+	}
 }
 
 .button-to-main img{

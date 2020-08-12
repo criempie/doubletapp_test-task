@@ -39,15 +39,17 @@ class ColorSelect extends CustomSelect {
 			let temp = [];
 			temp = [
 				<input id={id}
+					   key={id}
 					   className="option-input"
 					   type="radio"
 					   value={color} />,
 
 				<div className="option-color"
+					 key={id + 1}
 					 htmlFor={id}
 					 onClick={() => this.selectOption(color, id)}
-					 style={color != "#rainbow" ? {backgroundColor: color} : null}>
-						 {color == "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" /> : null}
+					 style={color !== "#rainbow" ? {backgroundColor: color} : null}>
+						 {color === "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" /> : null}
 				</div>
 			];
 

@@ -80,3 +80,58 @@ tbody {
 	width: 40px;
 	height: 40px;
 }
+
+.table-mobile {
+
+}
+
+.table-element-mobile {
+	position: relative;
+	border-radius: 6px;
+	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+}
+
+.table-head-mobile {
+	display: grid;
+	grid-template-columns: 40px 1fr 30px;
+
+	align-items: center;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+}
+
+.table-head-info {
+	display: inline;
+	padding-left: 20px;
+}
+
+.table-head-fullname {
+	width: 100%;
+	font-weight: 500;
+}
+
+.table-head-info-under {
+	display: flex;
+}
+
+.table-head-color {
+	width: 12px;
+	height: 12px;
+	border-radius: 100px;
+
+	margin-right: 10px;
+}
+
+.table-head-star {
+	width: 12px;
+	height: 12px;
+
+	margin-right: 10px;
+}
+
+.table-head-rating {
+	font-size: 12px;
+	font-weight: 500;
+}

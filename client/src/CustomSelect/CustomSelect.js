@@ -9,6 +9,7 @@ class CustomSelect extends Component {
 			label: props.label,
 			name: props.name,
 			value: props.value || "Выбрать",
+			isValid: false,
 			isOpen: false,
 			selectedID: props.selectedID || -1,
 		}
@@ -22,11 +23,24 @@ class CustomSelect extends Component {
 	// }
 
 	sendValue() {
-		this.props.getValue(this.state.name, [this.state.value, true]); //
+		this.props.getValue(this.state.name, this.state.value); 
+	}
+
+	sendValid() {
+		if (this.state.name !== 'sort') {
+			this.props.getValid(this.state.name, this.state.isValid);
+		}
+	}
+
+	validation() {
+		return !this.state.value === "Выбрать";
 	}
 
 	selectOption(option, id) {
-		this.setState({value: option, selectedID: id}, () => this.sendValue());
+		this.setState({value: option, selectedID: id}, () => {
+			this.sendValue();
+			this.setState({isValid: true}, () => {this.sendValid()})
+		});
 	}
 
 	render(props) {
@@ -55,8 +69,8 @@ class CustomSelect extends Component {
 	setHidden = () => this.setState({isOpen: false});
 
 	setCheck(id) {
-		if (this.state.selectedID == id) {
-			return <img id="checked" src="./images/selected.svg"></img>
+		if (this.state.selectedID === id) {
+			return <img id="checked" src="./images/selected.svg" alt="Галочка" />
 		}
 	}
 
@@ -65,13 +79,14 @@ class CustomSelect extends Component {
 		for (let id in this.props.options) {
 			let temp = [];
 			temp = [
-				<input id={id} className="option-input" 
-							   type="radio"
-							   value={this.state.value} />,
-
-				<label htmlFor={id} 
-					   className="option-label"
-					   onClick={() => this.selectOption(this.props.options[id], id)} >
+				<input key={id} id={id} className="option-input" 
+								type="radio"
+								value={this.state.value} />,
+				
+				<label  key={id + 1} 
+						htmlFor={id} 
+					    className="option-label"
+					    onClick={() => this.selectOption(this.props.options[id], id)} >
 
 					{this.props.options[id]}
 					{this.setCheck(id)}

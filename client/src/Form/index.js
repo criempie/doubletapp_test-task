@@ -12,17 +12,31 @@ class Form extends Component {
 
 		this.state = {
 			studentData: {
-				fullname: [],
-				email: [],
-				age: [],
-				rating: [],
-				group: [],
-				specialty: [],
-				sex: [],
-				color: [],
+				avatar: "",
+				fullname: "",
+				email: "",
+				age: "",
+				rating: "",
+				specialty: "",
+				group: "",
+				color: "",
+				sex: "",
 			},
 
-			style: null,
+			dataValid: {
+				avatar: false,
+				fullname: false,
+				email: false,
+				age: false,
+				rating: false,
+				specialty: false,
+				group: false,
+				color: false,
+				sex: false,
+			},
+
+			globalValid: true, //
+			errorMessage: "",
 		};
 
 		
@@ -32,58 +46,80 @@ class Form extends Component {
 		
 	}
 
+	checkEmptiness() {
+		let isEmpty = false;
+		for (let key in this.state.studentData) {
+			if (key === "avatar") {
+				continue;
+			} else {
+				if (!this.state.studentData[key]) {
+					isEmpty = true;
+					break;
+				}
+			}
+		} 
+
+		return isEmpty;
+	}
+
 	validationGlobal() {
 		let isValid = true;
-		loop:
-		for (let key in this.state.studentData) {
-			let data = this.state.studentData;
-			if (data[key][1]) {
-				if (data[key][0]) {
-					continue;
-				} else {
-					console.log(key, data)
-					this.setState({[key]: [data[key][0], false]}, () => isValid = false);
-				}
-			} else {
+
+		for (let key in this.state.dataValid) {
+			if (!this.state.dataValid[key]) {
+				console.log("broke on: ", key);
 				isValid = false;
-			}
+				break;
+			} 
 		}
 
+		let isExistsEmptyField = this.checkEmptiness();
+		console.log(this.state.studentData)
+		if (!isValid) {
+			if (isExistsEmptyField) {
+				this.setState({errorMessage: "Не все поля заполнены"});
+			} else {
+				this.setState({errorMessage: "Не все поля прошли валидацию"});
+			}
+		} else {
+			this.setState({errorMessage: ""});
+		}
+
+		console.log("global valid: ", isValid);
+		this.setState({globalValid: isValid});
 		return isValid;
-	}
-
-	validationText(regexp, string) {
-		return string ? regexp.test(string) : true;
-	}
-
-	validationSelect(string) {
-		return string ? true : false;
 	}
 
 	getValue = (stateName=null, value=null) => {
 		let studentData = Object.assign({}, this.state.studentData);
 		studentData[stateName] = value;
 
-		this.setState({'studentData': studentData}, () => console.log(this.state.studentData))
+		this.setState({'studentData': studentData})
 		// this.setState({[stateName]: value}, () => console.log(this.state.studentData));
+	}
+
+	getValid = (stateName=null, value=null) => {
+		let dataValid = Object.assign({}, this.state.dataValid);
+		dataValid[stateName] = value;
+		
+		this.setState({'dataValid': dataValid});
 	}
 
 	sendRequest(studentData) {
 		let formData = new FormData();
 
-		console.log('state: ', this.state.studentData);
+		console.log('sending student: ', this.state.studentData);
 
 		for (let key in studentData) {
-			formData.append(key, studentData[key][0]);
-			console.log(formData);
+			formData.append(key, studentData[key]);
 		}
 
-		console.log('formdata: ', formData);
-
-		fetch('/', {
+		fetch('/api/send', {
 			method: 'POST',
 			body: formData,
-		});
+		})
+		.then(() => console.log("send blyat"))
+		.catch(err => console.log("sending error: ", err))
 	}
 
 
@@ -118,38 +154,81 @@ class Form extends Component {
 			'#rainbow',
 		];
 		
-		console.log(this.state)
 		return (
 			<div>
 		
 				<div className="avatarchange-container">
-					<AvatarChange getValue={this.getValue} />
+					<AvatarChange getValue={this.getValue} 
+								  getValid={this.getValid}
+								  setValid={this.state.dataValid.avatar} />
 				</div>
 
 				<div className="inputs-container">
-					<InputText label="ФИО" name="fullname" placeholder="Иванов Иван Иванович" getValue={this.getValue} isValid={this.validationText(/^[А-Я\sа-яЁё]+$/, this.state.studentData.fullname[0])}/>
-					<InputText label="Email" name ="email" placeholder="ivanov@gmail.com" getValue={this.getValue} isValid={this.validationText(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/, this.state.studentData.email[0])}/>
-					<InputText label="Возраст" name="age" placeholder="20" getValue={this.getValue} isValid={this.validationText(/^[1-9]\d{0,2}$/, this.state.studentData.age[0])}/>
-					<CustomSelect label="Группа" name="group" options={groupOptions[this.state.studentData.specialty[0]]} getValue={this.getValue} />
-					<CustomSelect label="Специальность" name="specialty" options={specialtyOptions} getValue={this.getValue} />
-					<InputText label="Рейтинг" name="rating" placeholder="0" getValue={this.getValue} isValid={this.validationText(/^([0]?|[1-9]\d{0,2})$/, this.state.studentData.rating[0])}/>
-					<CustomSelect label="Пол" name="sex" options={["Мужской", "Женский"]} getValue={this.getValue} />
-					<ColorSelect label="Любимый цвет" name="color" value="Выбрать" options={colorsOptions} type="colorSelect" getValue={this.getValue} />	
+					<InputText label="ФИО" name="fullname"
+							   placeholder="Иванов Иван Иванович" 
+							   getValid={this.getValid}
+							   setValid={this.state.dataValid.fullname}
+							   getValue={this.getValue} />
+					
+					<InputText label="Email" name ="email"
+							   placeholder="ivanov@gmail.com"
+							   setValid={this.state.dataValid.email}
+							   getValid={this.getValid}
+							   getValue={this.getValue} />
+					
+					<InputText label="Возраст" name="age" 
+							   placeholder="20"
+							   setValid={this.state.dataValid.age}
+							   getValid={this.getValid}
+							   getValue={this.getValue} />
+					
+					<CustomSelect label="Специальность" name="specialty"
+								  options={specialtyOptions}
+								  getValid={this.getValid}
+								  getValue={this.getValue} />
+					
+					<CustomSelect label="Группа" name="group" 
+								  options={groupOptions[this.state.studentData.specialty]}
+								  getValid={this.getValid}
+								  getValue={this.getValue} />
+					
+					<InputText label="Рейтинг" name="rating"
+							   placeholder="0"
+							   setValid={this.state.dataValid.rating}
+							   getValid={this.getValid}
+							   getValue={this.getValue}	 />
+					
+					<CustomSelect label="Пол" name="sex" 
+								  options={["Мужской", "Женский"]} 
+								  getValid={this.getValid}
+								  getValue={this.getValue} />
+					
+					<ColorSelect  label="Любимый цвет" name="color" 
+								  value="Выбрать" options={colorsOptions} 
+								  getValid={this.getValid}
+								  type="colorSelect" getValue={this.getValue} />	
 				</div>
 
-				<Button label="Создать"
-						style={this.state.style}
-						OnClick={() => {
-								if (this.validationGlobal()) {
-									this.setState({style: null})
-									this.sendRequest(this.state.studentData);
-									this.props.func();
-								} else {
-									this.setState({style: {border: '1px solid red'}})
+				<div className="button-container">
+					<Button label="Создать"
+							style={this.state.globalValid ? null : {backgroundColor: 'crimson'}}
+							OnClick={() => {
+									if (this.validationGlobal()) {
+										console.log("validation successful!")
+										this.sendRequest(this.state.studentData);
+										this.props.func();
+									} else {
+										console.log(this.state.dataValid)
+									}
 								}
-							}
-						} />
-						
+							} />
+					
+					<span className="error-string" style={this.state.errorMessage ? {visibility: 'visible'} : {visibility: 'hidden'}}>
+						{this.state.errorMessage}
+					</span>
+
+				</div>
+
 			</div>
 
 		);

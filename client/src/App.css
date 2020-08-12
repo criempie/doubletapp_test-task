@@ -27,7 +27,7 @@ body, html {
 
 	max-width: 1440px;
 
-	padding-top: 30px;
+	padding-top: 40px;
 	padding-bottom: 60px;
 }
 
@@ -42,10 +42,43 @@ body, html {
 	color: #000000;
 }
 
+@media all and (max-width: 490px) {
+	.container {
+		left: 5%;
+		right: 5%;
+	}
+
+	.container-h2-additions {
+		display: block !important;
+	}
+
+	.container-tools {
+		display: block !important;
+		margin-top: 10px;
+	}
+
+	.container-tools button {
+		right: 5%;
+		padding-top: 11px;
+		padding-bottom: 11px;
+	}
+
+	#sort_input {
+		display: none;
+	}
+
+	.container h2 {
+		font-size: 25px;
+		float: unset;
+	}
+}
+
 .container-h2-additions{
 	position: relative;
 	display: flex;
 	width: 100%;
+
+	align-items: center;
 
 	justify-content: space-between;
 }
@@ -64,3 +97,4 @@ body, html {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 30px;
 }
+

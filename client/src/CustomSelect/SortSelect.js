@@ -22,6 +22,7 @@ class SortSelect extends CustomSelect {
 	}
 
 	getDirectionIcon = () => <img className="sortdirection-icon"
+								  alt="Направление"
 						  		  style={{transform: `scaleY(${this.state.sortDirection ? -1 : 1})`}}
 								  src="./images/sort.svg"
 								  onClick={() => this.setState({sortDirection: !this.state.sortDirection}, () => {

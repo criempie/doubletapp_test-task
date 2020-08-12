@@ -20,6 +20,21 @@ header {
 	left: 10%;
 }
 
+@media all and (max-width: 490px) {
+	.logo-container {
+		left: 5%;
+	}
+
+	.logo-container svg {
+		max-width: 32px !important;
+		max-height: 32px !important;
+	}
+
+	#logo-text {
+		font-size: 17px !important;
+	}
+}
+
 .logo-container svg {
 	position: relative;
 	max-width: 48px;
@@ -30,6 +45,5 @@ header {
 #logo-text {
 	font-weight: 500;
 	font-size: 20px;
-
-	margin-left: 50px;
+	margin-left: 2em;
 }

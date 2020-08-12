@@ -25,29 +25,80 @@ function TableStudents(props) {
 
 	let getTableHead = () => {
 		return (
-			<tr className="table-head">
-	 			<th></th>
-	 			<th>ФИО</th>
-	 			<th>Специальность</th>
-	 			<th>Группа</th>
-	 			<th>Возраст</th>
-	 			<th>Рейтинг</th>
-	 			<th></th>
-	 			<th></th>
-	 		</tr>
+			<thead>
+				<tr className="table-head">
+					<th></th>
+					<th>ФИО</th>
+					<th>Специальность</th>
+					<th>Группа</th>
+					<th>Возраст</th>
+					<th>Рейтинг</th>
+					<th></th>
+					<th></th>
+				</tr>
+
+				<tr style={{height: 16}} />
+			</thead>
+			 
+		);
+	};
+
+	let getStudentDiv = (student) => {
+		return (
+			<div key={student._id} className="table-element-mobile">
+				<div className="table-head-mobile">
+					<img className="table-avatar" src={student.avatar} alt="Аватар" />
+					<div className="table-head-info">
+						<span className="table-head-fullname">{student.fullname}</span>
+						<div className="table-head-info-under">
+							{renderColor_mobile(student.color)}
+							<img className="table-head-star" src="./images/star.svg" alt="Звездочка" />
+							<span className="table-head-rating">{student.rating}</span>
+						</div>
+					</div>
+					{renderDeleteIcon()}
+				</div>
+				<hr />
+				<div className="table-body">
+					<ul className="table-body-info">
+						<li className="table-body-info-element">{student.age}</li>
+						<li className="table-body-info-element">{student.specialty}</li>
+						<li className="table-body-info-element">{student.group}</li>
+					</ul>
+				</div>
+			</div>
+		);
+	};
+
+	let getTableStudent = () => {
+		return (
+			students.filter((student) => student['fullname'].toLowerCase()
+															.indexOf(props.search.trim()
+																				 .toLowerCase()) +1)
+																				 .map((student) => {
+																					return getStudentDiv(student);
+																				 })
 		);
 	};
 
 	let renderDeleteIcon = (id) => {
 		return (
 			<div className="delete-icon-container" onClick={() => deleteStudent(id)}>
-				<img src="./images/delete.svg" />
+				<img src="./images/delete.svg" alt="Удалить" />
 			</div>
 		);
 	};
 
+	let renderColor_mobile = (color) => {
+		if (color === "#rainbow") {
+			return <img className="table-head-color" src="./images/rainbow.png" alt="rainbow" />;
+		} else {
+			return <div className="table-head-color" style={{backgroundColor: color}} />
+		}
+	};
+
 	let renderColor = (color) => {
-		if (color == "#rainbow") {
+		if (color === "#rainbow") {
 			return 	<div className="option-color">
 						<img src="./images/rainbow.png" alt="rainbow" />
 					</div>
@@ -58,7 +109,7 @@ function TableStudents(props) {
 
 	let getStudentRow = (student) => {
 		return (
-			<tr id={student._id} className="table-row">
+			<tr key={student._id} className="table-row">
 				<th className="avatar-column"><img className="table-avatar" src={student.avatar} alt=""/></th>
 				<th>{student.fullname}</th>
 				<th>{student.specialty}</th>
@@ -92,7 +143,6 @@ function TableStudents(props) {
 																					let value1 = obj1[dictionary[props.sortSettings[0]]].toLowerCase();
 																					let value2 = obj2[dictionary[props.sortSettings[0]]].toLowerCase();
 
-																					console.log(props.sortSettings);
 																					value1 = isConsistsNumber(value1) ? Number.parseInt(value1) : value1;
 																					value2 = isConsistsNumber(value2) ? Number.parseInt(value2) : value2;
 																					
@@ -105,91 +155,23 @@ function TableStudents(props) {
 		);
 	};
 
-	
-
-	return (
-		<table className="table-students">
-			<thead>
+	if (window.outerWidth < 490) {
+		return (
+			<div className="table-mobile">
+				{getTableStudent()}
+			</div>
+		);
+	} else {
+		return (
+			<table className="table-students"> 
 				{getTableHead()}
-			</thead>
-			<br />
-			<tbody>
-				{getTableRows()}
-			</tbody>
-		</table>
-	);
-
-	// render(props) {
-	// 	return (
-	// 		<table className="table-students">
-	// 			<tbody>
-	// 				{this.getTableHead()}
-	// 				{this.getTableRows()}
-	// 			</tbody>
-	// 		</table>
-	// 	);
-	// }
-
-	
-
-	// getTableHead() {
-	// 	return (
-	// 		<tr className="table-head">
-	// 			{/* <th id="avatar"></th> */}
-	// 			<th id="fullname">ФИО</th>
-	// 			<th id="specialty">Специальность</th>
-	// 			<th id="group">Группа</th>
-	// 			<th id="age">Возраст</th>
-	// 			<th id="rating">Рейтинг</th>
-	// 			<th id="color"></th>
-	// 			<th id="delete"></th>
-	// 		</tr>
-	// 	);
-	// }	
-
-	
-
-	// renderColor(color) {
-	// 	return (
-	// 		<div className="option-color" style={{backgroundColor: color}}></div>
-	// 	);
-	// }
-
-	
-
-	// renderDeleteIcon(id) {
-	// 	return (
-	// 		<div className="delete-icon-container" onClick={() => this.deleteStudent(id)}>
-	// 			<img src="./images/delete.svg" />
-	// 		</div>
-	// 	);
-	// }
-
-	
-	
-	// getStudentRow(student) {
-	// 	return (
-	// 		<tr  id={student["_id"]} className="table-row">
-	// 			<th>{student.fullname}</th>
-	// 			<th>{student.specialty}</th>
-	// 			<th>{student.group}</th>
-	// 			<th>{student.age}</th>
-	// 			<th>{student.rating}</th>
-	// 			<th>{this.renderColor(student.color)}</th>
-	// 			<th>{this.renderDeleteIcon(student["_id"])}</th>
-	// 		</tr>
-	// 	)
-	// }
-
-	
-
-	// getTableRows() {
-	// 	let temp = [];
-	// 	for (let student of this.state.students) {
-	// 		temp.push(this.getStudentRow(student));
-	// 	} 
-	// 	return temp;
-	// }
+				
+				<tbody>
+					{getTableRows()}
+				</tbody>
+			</table>
+		);
+	}
 
 	
 
