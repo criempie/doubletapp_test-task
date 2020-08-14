@@ -115,6 +115,7 @@ hr {
 }
 
 .table-head-info-under {
+	padding-top: 5px;
 	display: flex;
 }
 

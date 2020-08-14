@@ -61,7 +61,7 @@ function TableStudents(props) {
 				<div className="table-head-mobile">
 					<img className="table-avatar" src={student.avatar} alt="Аватар" />
 					<div className="table-head-info">
-						<span className="table-head-fullname">{student.fullname.split(' ')}</span>
+						<span className="table-head-fullname">{student.fullname.split(' ')[0] + " " + student.fullname.split(' ')[1]}</span>
 						<div className="table-head-info-under">
 							{renderColor_mobile(student.color)}
 							<img className="table-head-star" src="./images/star.svg" alt="Звездочка" />
