@@ -68,7 +68,7 @@ function TableStudents(props) {
 							<span className="table-head-rating">{student.rating}</span>
 						</div>
 					</div>
-					{renderDeleteIcon(student._id, student.avatar)}
+					{renderDeleteIcon(student._id, student.avatar.split('/')[1])}
 				</div>
 				<hr />
 				<div className="table-body">
