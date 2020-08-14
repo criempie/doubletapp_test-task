@@ -39,7 +39,10 @@ class AvatarChange extends Component {
 			});
 		};
 
-		reader.readAsDataURL(file);
+		console.log(file)
+		if (file) {
+			reader.readAsDataURL(file);
+		}
 		// await new Promise(accept => reader.readAsDataURL(file, accept)); 
 		
 	}
