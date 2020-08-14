@@ -84,11 +84,6 @@ $ cd doubletapp_test-task
 $ docker-compose build
 ```
 
-* Запускаем контейнеры: 
-```
-$ docker-compose up
-```
-
 * Вывод будет начинаться примерно так:
 ```
 $ mongo uses an image, skipping
