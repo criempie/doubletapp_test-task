@@ -2,46 +2,46 @@
 ## Устанавливаем Docker
 
 * Первым делом обновите существующий список пакетов:   
-`sudo apt update`  
+`$ sudo apt update`  
 
 * Затем установите несколько необходимых пакетов, которые позволяют apt использовать пакеты через HTTPS:    
-`sudo apt install apt-transport-https ca-certificates curl software-properties-common`
+`$ sudo apt install apt-transport-https ca-certificates curl software-properties-common`
 
 * Добавьте ключ GPG для официального репозитория Docker в вашу систему:   
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+`$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
 
 * Добавьте репозиторий Docker в источники APT:   
-`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"`
+`$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"`
 
 * Потом обновите базу данных пакетов и добавьте в нее пакеты Docker из недавно добавленного репозитория:  
-`sudo apt update`
+`$ sudo apt update`
 
 * Убедитесь, что установка будет выполняться из репозитория Docker, а не из репозитория Ubuntu по умолчанию:  
-`apt-cache policy docker-ce`
+`$ apt-cache policy docker-ce`
 
 * Вы должны получить следующий вывод, хотя номер версии Docker может отличаться:   
 ```
-docker-ce:
-  Installed: (none)
-  Candidate: 5:19.03.9~3-0~ubuntu-focal
-  Version table:
-     5:19.03.9~3-0~ubuntu-focal 500
-        500 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages
+$ docker-ce:
+    Installed: (none)
+    Candidate: 5:19.03.9~3-0~ubuntu-focal
+    Version table:
+       5:19.03.9~3-0~ubuntu-focal 500
+          500 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages
  ```
  Обратите внимание, что docker-ce не установлен, но является кандидатом на установку из репозитория Docker для Ubuntu 20.04 (версия focal).
 
 *  Установите Docker:
-`sudo apt install docker-ce`
+`$ sudo apt install docker-ce`
 
 * Docker должен быть установлен, демон-процесс запущен, а для процесса активирован запуск при загрузке. Проверьте, что он запущен:
-`sudo systemctl status docker`
+`$ sudo systemctl status docker`
 
 * Вывод должен выглядеть примерно следующим образом, указывая, что служба активна и запущена: 
 ```
-● docker.service - Docker Application Container Engine
+$ docker.service - Docker Application Container Engine
      Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
      Active: active (running) since Tue 2020-05-19 17:00:41 UTC; 17s ago
-TriggeredBy: ● docker.socket
+TriggeredBy: docker.socket
        Docs: https://docs.docker.com
    Main PID: 24321 (dockerd)
       Tasks: 8
@@ -53,7 +53,7 @@ TriggeredBy: ● docker.socket
     
 ### Разрешаем не root пользователю использовать Docker (опционально)
 * Добавляем своего пользователя в группу docker:   
-`sudo usermod -aG docker username`   
+`$ sudo usermod -aG docker username`   
    
    
    
@@ -61,37 +61,37 @@ TriggeredBy: ● docker.socket
 ## Устанавливаем Docker-compose
 * Запускаем эту команду для установки последней версии docker-compose:  
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-* Делаем файл запускаемым: `sudo chmod +x /usr/local/bin/docker-compose`
+* Делаем файл запускаемым: `$ sudo chmod +x /usr/local/bin/docker-compose`
 
-* Проверяем, как все работает: `docker-compose --version`
+* Проверяем, как все работает: `$ docker-compose --version`
 
 * Вывод должен быть примерно таким: 
 ```
-docker-compose version 1.26.0, build 8a1c60f6
+$ docker-compose version 1.26.0, build 8a1c60f6
 ```
 
 ## Запускаем решение
 * Заходим в корневую папку проекта:  
 ```
-cd doubletapp_test-task
+$ cd doubletapp_test-task
 ```
 
 * Собираем образы будущих контейнеров Docker:
 ```
-docker-compose build
+$ docker-compose build
 ```
 
 * Запускаем контейнеры: 
 ```
-docker-compose up
+$ docker-compose up
 ```
 
 * Вывод будет начинаться примерно так:
 ```
-mongo uses an image, skipping
+$ mongo uses an image, skipping
 Building frontend
 Step 1/7 : FROM node:alpine
 alpine: Pulling from library/node
@@ -118,12 +118,12 @@ Removing intermediate container 92edc8b33c56
 
 * Далее мы запускаем контейнеры из только что собранных образов: 
 ```
-docker-compose up
+$ docker-compose up
 ```
 
 * Вывод начнется с этого: 
 ```
-Creating network "doubletapp_test-task_default" with the default driver
+$ Creating network "doubletapp_test-task_default" with the default driver
 Pulling mongo (mongo:bionic)...
 bionic: Pulling from library/mongo
 7595c8c21622: Pull complete
@@ -148,7 +148,7 @@ Creating doubletapp_test-task_backend_1  ... done
 
 * Ожидаем до появления этих строк и заходим на любой из предложенных адресов: 
 ```
-Compiled successfully!
+$ Compiled successfully!
 frontend_1  | 
 frontend_1  | You can now view doubletapp in the browser.
 frontend_1  | 
@@ -166,14 +166,14 @@ frontend_1  |
 ## Удаление образов
 * Если вы не собираетесь в дальнейшем пользоваться проектом, то образы стоит удалить, так как весят они не мало:
 ```
-docker rmi doubletapp_test-task_backend \
+$ docker rmi doubletapp_test-task_backend \
 && docker rmi doubletapp_test-task_frontend \
 && docker rmi $(docker images -f dangling=true -q)
 ```
 
 * Если вы хотите удалить ВСЕ образы и контейнеры с вашего компьютера, в том числе и не связанных с проектом, то можно воспользоваться командой:
 ```
-docker system prune -a
+$ docker system prune -a
 ```
 
 # API   
