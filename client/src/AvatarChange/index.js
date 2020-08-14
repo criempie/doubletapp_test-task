@@ -30,7 +30,6 @@ class AvatarChange extends Component {
 		let reader = new FileReader();
 		let file = event.target.files[0];
 		
-		this.sendValue(file);
 		this.setState({isValid: true}, this.sendValid);
 
 		reader.onloadend = () => {
@@ -40,6 +39,7 @@ class AvatarChange extends Component {
 		};
 
 		if (file) {
+			this.sendValue(file);
 			reader.readAsDataURL(file);
 		}
 		// await new Promise(accept => reader.readAsDataURL(file, accept)); 
