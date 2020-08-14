@@ -143,6 +143,10 @@ hr {
 	margin-bottom: 2px;
 } 
 
+.table-body-info {
+	padding-left: 28%;
+}
+
 .table-body-info-element span {
 	font-weight: 400;
 	font-size: 13px;

@@ -11,12 +11,11 @@ function TableStudents(props) {
 		.catch(err => console.log(err));
 	}, []);
 
-	let deleteStudent = async (id) => {
-		await fetch(`/delete/${id}`, {
+	let deleteStudent = async (id, path) => {
+		await fetch(`/delete/${id}/${path}`, {
 			method: 'DELETE',
 		})
 		.then(res => res.json())
-		.then(res => console.log(res))
 		.catch(err => console.log(err));
 
 		setStudents(students.filter(n => n._id !== id));
@@ -43,7 +42,20 @@ function TableStudents(props) {
 		);
 	};
 
+	let setAgeString = (age) => {
+		if ([11, 12, 13, 14].includes(+age % 100)) {
+			return "лет";
+		} else if (+age % 10 === 1) {
+			return "год";
+		} else if (+age % 10 > 0 && +age % 10 < 5) {
+			return "года";
+		} else {
+			return "лет";
+		}
+	}
+
 	let getStudentDiv = (student) => {
+		console.log(student)
 		return (
 			<div key={student._id} className="table-element-mobile">
 				<div className="table-head-mobile">
@@ -56,12 +68,12 @@ function TableStudents(props) {
 							<span className="table-head-rating">{student.rating}</span>
 						</div>
 					</div>
-					{renderDeleteIcon()}
+					{renderDeleteIcon(student._id, student.avatar)}
 				</div>
 				<hr />
 				<div className="table-body">
 					<ul className="table-body-info">
-						<li className="table-body-info-element"><span>{student.age}</span></li>
+						<li className="table-body-info-element"><span>{student.age} {setAgeString(student.age)}</span></li>
 						<li className="table-body-info-element"><span>{student.specialty}</span></li>
 						<li className="table-body-info-element"><span>{student.group}</span></li>
 					</ul>
@@ -81,9 +93,9 @@ function TableStudents(props) {
 		);
 	};
 
-	let renderDeleteIcon = (id) => {
+	let renderDeleteIcon = (id, path) => {
 		return (
-			<div className="delete-icon-container" onClick={() => deleteStudent(id)}>
+			<div className="delete-icon-container" onClick={() => deleteStudent(id, path)}>
 				<img src="./images/delete.svg" alt="Удалить" />
 			</div>
 		);
@@ -98,13 +110,19 @@ function TableStudents(props) {
 	};
 
 	let renderColor = (color) => {
-		if (color === "#rainbow") {
-			return 	<div className="option-color">
-						<img src="./images/rainbow.png" alt="rainbow" />
-					</div>
-		} else {
-			return <div className="option-color" style={{backgroundColor: color}} />
-		}
+		return (
+			<div style={{cursor: 'default', backgroundColor: color}} className="option-color">
+				{color === "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" null /> : null}
+			</div>
+		);
+
+		// if (color === "#rainbow") {
+		// 	return 	<div style={{cursor: 'default'}} className="option-color">
+		// 				<img src="./images/rainbow.png" alt="rainbow" />
+		// 			</div>
+		// } else {
+		// 	return <div style={{cursor: 'default'}} className="option-color" style={{backgroundColor: color}} />
+		// }
 	};
 
 	let getStudentRow = (student) => {
@@ -117,7 +135,7 @@ function TableStudents(props) {
 				<th>{student.age}</th>
 				<th>{student.rating}</th>
 				<th>{renderColor(student.color)}</th>
-				<th>{renderDeleteIcon(student["_id"])}</th>
+				<th>{renderDeleteIcon(student["_id"], student['avatar'].split('/')[1])}</th>
 			</tr>
 		);
 	};

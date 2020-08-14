@@ -68,14 +68,12 @@ class Form extends Component {
 
 		for (let key in this.state.dataValid) {
 			if (!this.state.dataValid[key]) {
-				console.log("broke on: ", key);
 				isValid = false;
 				break;
 			} 
 		}
 
 		let isExistsEmptyField = this.checkEmptiness();
-		console.log(this.state.studentData)
 		if (!isValid) {
 			if (isExistsEmptyField) {
 				this.setState({errorMessage: "Не все поля заполнены"});
@@ -86,7 +84,6 @@ class Form extends Component {
 			this.setState({errorMessage: ""});
 		}
 
-		console.log("global valid: ", isValid);
 		this.setState({globalValid: isValid});
 		return isValid;
 	}
@@ -96,7 +93,6 @@ class Form extends Component {
 		studentData[stateName] = value;
 
 		this.setState({'studentData': studentData})
-		// this.setState({[stateName]: value}, () => console.log(this.state.studentData));
 	}
 
 	getValid = (stateName=null, value=null) => {
@@ -111,23 +107,20 @@ class Form extends Component {
 	}
 
 	getUpdate() {
-		this.setState({specialtyIsChange: false}, () => console.log("update"));
+		this.setState({specialtyIsChange: false});
 	}
 
 	sendRequest(studentData) {
 		let formData = new FormData();
 
-		console.log('sending student: ', this.state.studentData);
-
 		for (let key in studentData) {
 			formData.append(key, studentData[key]);
 		}
 
-		fetch('/', {
+		fetch('/send', {
 			method: 'POST',
 			body: formData,
 		})
-		.then(() => console.log("send blyat"))
 		.then(() => this.props.func())
 		.catch(err => console.log("sending error: ", err))
 	}
@@ -164,7 +157,6 @@ class Form extends Component {
 			'#rainbow',
 		];
 		
-		console.log(this.state.specialtyIsChange)
 		return (
 			<div>
 		
@@ -227,12 +219,8 @@ class Form extends Component {
 							style={this.state.globalValid ? null : {backgroundColor: 'crimson'}}
 							OnClick={() => {
 									if (this.validationGlobal()) {
-										console.log("validation successful!")
 										this.sendRequest(this.state.studentData);
-										//this.props.func();
-									} else {
-										console.log(this.state.dataValid)
-									}
+									} 
 								}
 							} />
 					
