@@ -37,12 +37,13 @@ class Form extends Component {
 
 			globalValid: true, //
 			errorMessage: "",
+			specialtyIsChange: false,
 		};
 
 		
 
 		this.getValue = this.getValue.bind(this);
-		
+		this.getUpdate = this.getUpdate.bind(this);
 		
 	}
 
@@ -101,8 +102,16 @@ class Form extends Component {
 	getValid = (stateName=null, value=null) => {
 		let dataValid = Object.assign({}, this.state.dataValid);
 		dataValid[stateName] = value;
+
+		if (stateName === "specialty" && this.state.studentData.specialty !== value) {
+			this.setState({specialtyIsChange: true})
+		}
 		
 		this.setState({'dataValid': dataValid});
+	}
+
+	getUpdate() {
+		this.setState({specialtyIsChange: false}, () => console.log("update"));
 	}
 
 	sendRequest(studentData) {
@@ -114,11 +123,12 @@ class Form extends Component {
 			formData.append(key, studentData[key]);
 		}
 
-		fetch('/api/send', {
+		fetch('/', {
 			method: 'POST',
 			body: formData,
 		})
 		.then(() => console.log("send blyat"))
+		.then(() => this.props.func())
 		.catch(err => console.log("sending error: ", err))
 	}
 
@@ -154,6 +164,7 @@ class Form extends Component {
 			'#rainbow',
 		];
 		
+		console.log(this.state.specialtyIsChange)
 		return (
 			<div>
 		
@@ -189,6 +200,8 @@ class Form extends Component {
 					
 					<CustomSelect label="Группа" name="group" 
 								  options={groupOptions[this.state.studentData.specialty]}
+								  clearing={this.state.specialtyIsChange}
+								  getUpdate={this.getUpdate}
 								  getValid={this.getValid}
 								  getValue={this.getValue} />
 					
@@ -216,7 +229,7 @@ class Form extends Component {
 									if (this.validationGlobal()) {
 										console.log("validation successful!")
 										this.sendRequest(this.state.studentData);
-										this.props.func();
+										//this.props.func();
 									} else {
 										console.log(this.state.dataValid)
 									}

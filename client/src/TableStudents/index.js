@@ -61,9 +61,9 @@ function TableStudents(props) {
 				<hr />
 				<div className="table-body">
 					<ul className="table-body-info">
-						<li className="table-body-info-element">{student.age}</li>
-						<li className="table-body-info-element">{student.specialty}</li>
-						<li className="table-body-info-element">{student.group}</li>
+						<li className="table-body-info-element"><span>{student.age}</span></li>
+						<li className="table-body-info-element"><span>{student.specialty}</span></li>
+						<li className="table-body-info-element"><span>{student.group}</span></li>
 					</ul>
 				</div>
 			</div>

@@ -34,9 +34,10 @@ class SortSelect extends CustomSelect {
 			<div className="input-container" id="sort_input">
 				<button className="sort-select" id="sort_button"  
 						onClick={this.switchVisibility}
-						onBlur={() => setTimeout(this.setHidden, 200)} >
+						onBlur={this.handleBlur} >
 
 					<span>{this.state.value}</span>
+					
 				</button>
 
 				{this.getDirectionIcon()}

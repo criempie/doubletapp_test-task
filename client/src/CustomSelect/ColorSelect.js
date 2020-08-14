@@ -24,6 +24,10 @@ class ColorSelect extends CustomSelect {
 				<button className="custom-select"   onClick={this.switchVisibility} 
 													onBlur={() => setTimeout(this.setHidden, 200)} >
 					<span>{this.state.value}</span>
+					<img className="select-arrow"
+						 style={this.state.isOpen ? {transform: 'scaleY(-1)'} : {transform: 'scaleY(1)'}}
+						 src="./images/arrow.svg"
+						 alt="Стрелочка)" />
 				</button>
 				<div className="colors-container" style={{display: this.state.isOpen ? "grid" : "none"}}>
 					{this.getOptions()}
