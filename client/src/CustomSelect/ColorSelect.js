@@ -13,6 +13,17 @@ class ColorSelect extends CustomSelect {
 			value: props.value,
 			selectedID: props.selectedID || -1,
 			isOpen: false,
+
+			dict: {
+				'Выбрать': 'Выбрать',
+				'#49C2E8': "Голубой",
+				'#E25B5B': "Красный",
+				'#83C872': "Зеленый",
+				'#F7FB53': "Желтый",
+				'#000000': "Черный",
+				'#EFA638': "Оранжевый",
+				'#rainbow': "Радужный",
+			}
 		}
 
 	}
@@ -23,7 +34,7 @@ class ColorSelect extends CustomSelect {
 				{this.state.label ? <h4>{this.state.label}</h4> : null}
 				<button className="custom-select"   onClick={this.switchVisibility} 
 													onBlur={() => setTimeout(this.setHidden, 200)} >
-					<span>{this.state.value}</span>
+					<span>{this.state.dict[this.state.value]}</span>
 					<img className="select-arrow"
 						 style={this.state.isOpen ? {transform: 'scaleY(-1)'} : {transform: 'scaleY(1)'}}
 						 src="./images/arrow.svg"
@@ -53,7 +64,7 @@ class ColorSelect extends CustomSelect {
 					 htmlFor={id}
 					 onClick={() => this.selectOption(color, id)}
 					 style={color !== "#rainbow" ? {backgroundColor: color} : null}>
-						 {color === "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" /> : null}
+						   {color === "#rainbow" ? <img src="./images/rainbow.png" alt="rainbow" /> : null}
 				</div>
 			];
 
